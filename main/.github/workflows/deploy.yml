@@ -1,0 +1,30 @@
+name: Deploy Website to AWS EC2
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  deploy:
+    name: Deploy Application
+    runs-on: self-hosted
+
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      - name: Display Runner Information
+        run: |
+          echo "GitHub Actions is running on EC2"
+          hostname
+          whoami
+
+      - name: Deploy Website
+        run: |
+          cp index.html /var/www/html/index.html
+
+      - name: Verify Deployment
+        run: |
+          curl -I http://localhost
+          echo "Deployment Successful"
